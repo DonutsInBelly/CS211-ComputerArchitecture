@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "list.h"
 
-void createList(struct list **resultList)
+/*void createList(struct list **resultList)
 {
   // Creates an empty list for the argument to point to
   struct list* listm = malloc(sizeof(struct list));
@@ -12,7 +12,7 @@ void createList(struct list **resultList)
   listm->tail = NULL;
   // Argument points to empty list here
   *resultList=listm;
-}
+  }*/
 
 struct list * spawnList()
 {
@@ -30,11 +30,13 @@ void insert(int val, struct list *listm)
   nodeAdd->next = NULL;
   listm->size++;
 
+  // If the list is empty
   if(listm->head == NULL)
     {
       nodeAdd->next = NULL;
       listm->head= nodeAdd;
       listm->tail= nodeAdd;
+      return;
     }
   struct node *cur = listm->head;
   struct node *prev = NULL;
@@ -48,13 +50,13 @@ void insert(int val, struct list *listm)
 	    {
 	      nodeAdd->next = cur;
 	      listm->head=nodeAdd;
-	      return;
+	      break;
 	    }
 	  else
 	    {
 	      prev->next = nodeAdd;
 	      nodeAdd->next=cur;
-	      return;
+	      break;
 	    }
 	}
       // if the new value is higher
@@ -67,16 +69,36 @@ void insert(int val, struct list *listm)
 	    {
 	      cur->next=nodeAdd;
 	      listm->tail=nodeAdd;
-	      return;
-	    }
-	  else
-	    {
-	      prev=cur;
-	      cur=cur->next;
+	      listm->size++;
+	      break;
 	    }
 	}
+      prev=cur;
+      cur=cur->next;
     }
+  return;
 }
+/*
+void insertEnd(int val, struct list *listm)
+{
+  struct node *nodeAdd = malloc(sizeof(struct node));
+  nodeAdd->val=val;
+  nodeAdd->next=NULL;
+  if(listm->head==NULL)
+    {
+      listm->head=nodeAdd;
+      listm->tail=nodeAdd;
+      listm->size++;
+      return;
+    }
+  else
+    {
+      listm->tail->next=nodeAdd;
+      listm->tail=nodeAdd;
+      listm->size++;
+      return;
+    }
+    }*/
 
 void delete(int val, struct list *listm)
 {
@@ -125,6 +147,7 @@ void delete(int val, struct list *listm)
       prev=cur;
       cur=cur->next;
     }
+  return;
 }
 
 void printList(struct list *listm)
@@ -134,7 +157,8 @@ void printList(struct list *listm)
   do{
       printf("%d\n", cur->val);
       cur=cur->next;
-  }while(cur!=listm->tail);
+  }while(cur!=NULL);
+  return;
 }
 
 int main(int argc, char *argv[])

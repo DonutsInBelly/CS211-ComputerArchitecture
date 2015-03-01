@@ -17,9 +17,10 @@ typedef struct list
   int size;
 }list;
 
-void createList(struct list **resultList);
+//void createList(struct list **resultList);
 struct list * spawnList();
 void insert(int val, struct list *listm);
+//void insertEnd(int val, struct list *listm);
 void delete(int val, struct list *listm);
 void printList(struct list *listm);
 
