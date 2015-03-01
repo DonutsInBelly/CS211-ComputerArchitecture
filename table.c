@@ -180,6 +180,7 @@ void hash(intmax_t val, struct table *theTable)
 {
   struct node *nodeAdd = malloc(sizeof(struct node));
   nodeAdd->next = NULL;
+  nodeAdd->val = val;
   int key = val%theTable->tableSize;
   //if list is empty at key index
   if(theTable->hTable[key].head==NULL)
@@ -192,44 +193,24 @@ void hash(intmax_t val, struct table *theTable)
     }
   else
     {
-      //if the val is in the head of the list
-      if(theTable->hTable[key].head->val==nodeAdd->val)
-	{
-	  free(nodeAdd);
-	  return;
-	}
-      //if list exists and chaining must occur
-      //First case: if the only node in the list is the head
-      if(theTable->hTable[key].head==theTable->hTable[key].tail)
-	{
-	  theTable->hTable[key].head->next = nodeAdd;
-	  theTable->hTable[key].tail = nodeAdd;
-	  theTable->hTable[key].size++;
-	  theTable->unique++;
-	}
-      //Second case: for all general nodes
       struct node *cur = theTable->hTable[key].head;
-      struct node *prev = NULL;
-      do{
-	  //Checks if the val exists later in the list
+      while(cur!=NULL)
+	{
 	  if(cur->val==nodeAdd->val)
 	    {
 	      free(nodeAdd);
 	      return;
 	    }
-	  //adds val to end of list
 	  if(cur->next==NULL)
 	    {
-	      cur->next = nodeAdd;
-	      theTable->hTable[key].tail = nodeAdd;
+	      cur->next=nodeAdd;
+	      theTable->hTable[key].tail=nodeAdd;
 	      theTable->hTable[key].size++;
 	      theTable->unique++;
 	      return;
 	    }
-	  //iterates through list
-	  prev=cur;
 	  cur=cur->next;
-      }while(cur!=NULL);
+	}
     }
 }
 
@@ -258,17 +239,19 @@ int main(int argc, char *argv[])
 
 
   /* For testing how many are in each linked list of the Hash Table*/
-  /*for(int iter = 0; iter <1000; iter++)
+  for(int iter = 0; iter <1000; iter++)
     {
       printf("%d\n", myTable->hTable[iter].size);
     }
-  */
+  
 
   /* For testing whats in the linked lists within the Hash Table */
+  /*struct list *cur;
   for(int iter = 0; iter <1000; iter++)
     {
-      printList(myTable->hTable[iter]);
-    }
+      cur=myTable->hTable[iter];
+      printList(cur);
+      }*/
   printf("%d\n", myTable->unique);
   return 0;
 }
