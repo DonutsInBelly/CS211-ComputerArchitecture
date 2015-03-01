@@ -14,19 +14,20 @@ void createList(struct list **resultList)
   *resultList=listm;
 }
 
-struct list spawnList()
+struct list * spawnList()
 {
   struct list* listm = malloc(sizeof(struct list));
   listm->size = 0;
   listm->head = NULL;
   listm->tail = NULL;
-  return *listm;
+  return listm;
 }
 
 void insert(int val, struct list *listm)
 {
   struct node *nodeAdd = malloc(sizeof(struct node));
   nodeAdd->val = val;
+  nodeAdd->next = NULL;
   listm->size++;
 
   if(listm->head == NULL)
@@ -57,7 +58,7 @@ void insert(int val, struct list *listm)
 	    }
 	}
       // if the new value is higher
-      // Insert after if the pointer hits the end
+      // Insert after if the pointer hits the Tail
       // Otherwise, Insert before should take care of most cases
       // Most of the time, the cur will increment here
       else if(cur->val < nodeAdd->val)
@@ -65,6 +66,7 @@ void insert(int val, struct list *listm)
 	  if(cur->next==NULL)
 	    {
 	      cur->next=nodeAdd;
+	      listm->tail=nodeAdd;
 	      return;
 	    }
 	  else
@@ -128,11 +130,11 @@ void delete(int val, struct list *listm)
 void printList(struct list *listm)
 {
   struct node *cur = listm->head;
-  while(cur!=NULL)
-    {
+
+  do{
       printf("%d\n", cur->val);
       cur=cur->next;
-    }
+  }while(cur!=listm->tail);
 }
 
 int main(int argc, char *argv[])
@@ -141,16 +143,11 @@ int main(int argc, char *argv[])
   /* struct list theList;
      createList(theList);*/
 
-  struct list myList = spawnList();
-  insert(10, *myList);
-
-  /*
-  struct list *listPointer;
-  createList(*listPointer);
-  insert(10, listPointer);
-  insert(14, listPointer);
-  insert(9, listPointer);
-  insert(20, listPointer);
-  insert(50, listPointer);
-  printList(listPointer);*/
+  struct list * myList = spawnList();
+  insert(10, myList);
+  insert(14, myList);
+  insert(9, myList);
+  insert(20, myList);
+  insert(50, myList);
+  printList(myList);
 }

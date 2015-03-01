@@ -18,7 +18,7 @@ typedef struct list
 }list;
 
 void createList(struct list **resultList);
-struct list spawnList();
+struct list * spawnList();
 void insert(int val, struct list *listm);
 void delete(int val, struct list *listm);
 void printList(struct list *listm);
