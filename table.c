@@ -259,5 +259,6 @@ int main(int argc, char *argv[])
       printList(cur);
       }*/
   printf("%d\n", myTable->unique);
+  free(myTable);
   return 0;
 }
