@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include "table.h"
 
+/*
+*author: Carlin Au
+*CS211 - Computer Architecture
+*144005957
+*/
+
 /*void createList(struct list **resultList)
 {
   // Creates an empty list for the argument to point to

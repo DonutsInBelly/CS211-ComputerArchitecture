@@ -6,6 +6,12 @@
 #ifndef TABLE_H
 #define TABLE_H
 
+/*
+ *author: Carlin Au
+ *CS211 - Computer Architecture
+ *144005957
+ */
+
 typedef struct node
 {
   intmax_t val;
