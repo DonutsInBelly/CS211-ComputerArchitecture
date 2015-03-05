@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include "list.h"
 
+/*
+*author: Carlin Au
+*CS211 - Computer Architecture
+*144005957
+*/
+
+
 /*void createList(struct list **resultList)
 {
   // Creates an empty list for the argument to point to
@@ -174,4 +181,8 @@ int main(int argc, char *argv[])
   insert(20, myList);
   insert(50, myList);
   printList(myList);
+  /*
+   * free resources of linked list
+   */
+  free(myList);
 }
